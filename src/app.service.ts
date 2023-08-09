@@ -5,11 +5,13 @@ import { AppRepository } from './app.repository';
 export class AppService {
   private repository: AppRepository;
 
-  constructor(params: { id: number; title: string; content: string }) {
+  constructor(param: DomainName) {
     this.repository = new AppRepository({
-      id: params.id,
-      title: params.title,
-      content: params.content,
+      domainName: param.domainName,
     });
+  }
+
+  public create(params: Board): Board {
+    return this.repository.create(params);
   }
 }

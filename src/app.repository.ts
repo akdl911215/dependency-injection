@@ -1,28 +1,22 @@
 import { Injectable } from '@nestjs/common';
 
-type Board = {
-  title: string;
-  content: string;
-};
-
 @Injectable()
 export class AppRepository {
   private save: Map<string, Board> = new Map<string, Board>();
 
-  private readonly id: number;
-  private readonly title: string;
-  private readonly content: string;
+  private readonly domainName: string;
 
-  constructor(params: { id: number; title: string; content: string }) {
-    this.id = params.id;
-    this.title = params.title;
-    this.content = params.content;
+  constructor(param: DomainName) {
+    this.domainName = param.domainName;
   }
 
-  public create() {
-    this.save.set(`board${this.id}`, {
-      title: this.title,
-      content: this.content,
+  public create(params: Board): Board {
+    this.save.set(`board${this.domainName}-${params.id}`, {
+      id: params.id,
+      title: params.title,
+      content: params.content,
     });
+
+    return this.save.get(`board${this.domainName}-${params.id}`);
   }
 }
