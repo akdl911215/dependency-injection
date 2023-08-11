@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { AppInterface } from './app.interface';
 
+//Repository
 @Injectable()
-export class AppRepository {
+export class AppRepository implements AppInterface {
   private save: Map<string, Board> = new Map<string, Board>();
 
   private readonly domainName: string;
